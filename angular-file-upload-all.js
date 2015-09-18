@@ -24,7 +24,6 @@ if (window.XMLHttpRequest && !window.XMLHttpRequest.__isFileAPIShim) {
 		}
 	});
 }
-
 	
 var angularFileUpload = angular.module('angularFileUpload', []);
 
@@ -198,7 +197,10 @@ function handleFileSelect(scope, elem, attr, ngModel, $parse, $timeout, $compile
 		}
 		if (elem.parent().length) {
 			for (var i = 0; i < watchers.length; i++) {
-				watchers[i]();
+		if(typeof watchers[i] == 'function'){
+			watchers[i]();	
+		}
+		
 			}
 			elem.replaceWith(clone);
 			$compile(clone)(scope);
@@ -293,9 +295,13 @@ function handleFileSelect(scope, elem, attr, ngModel, $parse, $timeout, $compile
 	
     elem.on('$destroy', function() {
 		for (var i = 0; i < watchers.length; i++) {
-			watchers[i]();
+
+		if(typeof watchers[i] == 'function'){
+			watchers[i]();	
 		}
+
 		if (elem[0] != fileElem[0]) fileElem.remove();
+		}
     });
 	
 	watchers.push(scope.$watch(attr.ngModel, function(val, oldVal) {
