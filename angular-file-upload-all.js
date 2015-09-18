@@ -24,6 +24,7 @@ if (window.XMLHttpRequest && !window.XMLHttpRequest.__isFileAPIShim) {
 		}
 	});
 }
+
 	
 var angularFileUpload = angular.module('angularFileUpload', []);
 
